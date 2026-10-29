@@ -36,6 +36,13 @@ for the same reasons.
   parser; free `nk` cells come back with their path rebuilt through the parent chain and
   the values their list still points to, free `vk` cells nobody references come back as
   orphans. Works on a hive read from disk, from a shadow copy or carved from raw bytes.
+- **Transaction log replay** (`hive_logs`): a dirty hive and its `.LOG` / `.LOG1` / `.LOG2`
+  rebuilt in memory, never on disk. New-format `HvLE` entries (Windows 8.1+) are checked by
+  their two Marvin32 hashes and applied in consecutive sequence order, earlier log first,
+  stopping at a gap; old-format `DIRT` logs (Windows 7 / 8) are applied when their timestamp
+  matches the hive. The result is marked clean, so any hive reader takes it as is. Checked
+  against the hives Windows 10 and Windows 7 recovered themselves (yarp test corpus) and
+  against nt_hive2's own log applier on a lab NTUSER.DAT.
 
 Each tool keeps its own emission, deduplication and provenance; this crate never writes a
 timeline row.

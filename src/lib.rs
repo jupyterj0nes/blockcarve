@@ -14,6 +14,8 @@
 //!   between two reads is seen whole, every byte offered exactly once; read failures cost a
 //!   skipped window, never the run.
 //! * [`hive_cells`]: deleted keys and values recovered from the free cells of a hive.
+//! * [`hive_logs`]: transaction logs (`.LOG1` / `.LOG2`, old `DIRT` and new `HvLE`) replayed
+//!   into a dirty hive in memory.
 //! * [`hive`], [`evtx`], [`ntfs`], [`prefetch`], [`linux`]: validators and helpers for the
 //!   structures the tools carve. Each tool keeps its own emission and deduplication.
 //!
@@ -35,6 +37,7 @@
 pub mod evtx;
 pub mod hive;
 pub mod hive_cells;
+pub mod hive_logs;
 pub mod linux;
 pub mod ntfs;
 pub mod prefetch;
