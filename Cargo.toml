@@ -1,6 +1,6 @@
 [package]
 name = "blockcarve"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Block-wise signature carving for forensic images, live volumes and memory blobs: guarded sources, an aligned scanner with carry-over, and structural validators for registry hives, EVTX chunks, NTFS records, Prefetch and systemd journals."
 authors = ["Tono Diaz (@jupyterj0nes)"]

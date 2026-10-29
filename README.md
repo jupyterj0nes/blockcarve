@@ -32,6 +32,10 @@ for the same reasons.
     entries of the live chain and of the slack (feature `mft`, on by default).
   - `prefetch`: `SCCA` and `MAM` headers.
   - `linux`: systemd journal header.
+- **Deleted registry keys** (`hive_cells`): every hive bin walked with a bounds-checked
+  parser; free `nk` cells come back with their path rebuilt through the parent chain and
+  the values their list still points to, free `vk` cells nobody references come back as
+  orphans. Works on a hive read from disk, from a shadow copy or carved from raw bytes.
 
 Each tool keeps its own emission, deduplication and provenance; this crate never writes a
 timeline row.
@@ -61,7 +65,8 @@ scan_signatures(&mut *src, &cfg, hive::REGF_MAGIC, &mut |src, offset, window| {
 ## Design rules the tools follow
 
 - Carving is opt-in (`--carve`); structural recovery from structures already parsed (freed
-  hive cells, unused `$MFT` records) runs by default and does not go through this crate.
+  hive cells, unused `$MFT` records) runs by default. Both may use this crate: the rule is
+  about when a scan runs, not where its code lives.
 - Only self-timestamped structures are carved.
 - Identity deduplication against what the file system already provided (hive fingerprints,
   chunk hashes), never deduplication by offset.
